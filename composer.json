@@ -1,0 +1,15 @@
+{
+    "name": "ngoma/train-api",
+    "autoload": {
+        "psr-4": {
+            "Source\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ngoma Fortuna",
+            "email": "ngomafortuna@gmail.com"
+        }
+    ],
+    "require": {}
+}
