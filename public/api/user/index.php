@@ -3,11 +3,11 @@
 // error_reporting(E_ALL);
 // ini_set("display_errors", 1);
 
-// GET: /api.php - retorna todas as tarefas
-// PATCH: /api.php - retorna uma tarefas
-// POST: /api.php - adiciona uma nova tarefa
-// PUT: /api.php - marca uma tarefa como concluída
-// DELETE: /api.php - deleta uma tarefa
+// GET: /api/user - retorna todos utilizadores
+// PATCH: /api/user - retorna um utilizador
+// POST: /api/user - adiciona um novo utilizador
+// PUT: /api/user - altera o estado de um utilizador
+// DELETE: /api/user - elimina um utilizador
 
 // FONTE:
 // https://medium.com/@dharshithasrimal/php-rest-api-7441197312d7
@@ -17,27 +17,6 @@ include 'db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 $input = json_decode(file_get_contents('php://input'), true);
-
-// switch ($method) {
-//     case 'GET':
-//         handleGet($pdo);
-//         break;
-//     case 'PATCH':
-//         handlePatch($pdo, $input);
-//         break;
-//     case 'POST':
-//         handlePost($pdo, $input);
-//         break;
-//     case 'PUT':
-//         handlePut($pdo, $input);
-//         break;
-//     case 'DELETE':
-//         handleDelete($pdo, $input);
-//         break;
-//     default:
-//         echo json_encode(['message' => 'Invalid request method']);
-//         break;
-// }
 
 match($method) {
     'GET' => handleGet($pdo),
@@ -52,7 +31,7 @@ function handleDefault(string $jsonData):void {
     echo $jsonData;
 }
 
-// GET: /api.php - retorna todas as tarefas
+// GET: /api/user - retorna todos utilizadores
 function handleGet(PDO $pdo):void {
     try {
         $sql = "SELECT * FROM user";
@@ -65,7 +44,7 @@ function handleGet(PDO $pdo):void {
     }
 }
 
-// PATCH: /api.php - retorna uma tarefas
+// PATCH: /api/user - retorna um utilizdor
 function handlePatch(PDO $pdo, array $input) {
     try {
         $sql = "SELECT * FROM user WHERE id=:id";
@@ -78,7 +57,7 @@ function handlePatch(PDO $pdo, array $input) {
     }
 }
 
-// POST: /api.php - adiciona uma nova tarefa
+// POST: /api/user - adiciona um novo utilizador
 function handlePost(PDO $pdo, array $input):void {
     try {
         $sql = "INSERT INTO user (name, email) VALUES (:name, :email)";
@@ -90,7 +69,7 @@ function handlePost(PDO $pdo, array $input):void {
     }
 }
 
-// PUT: /api.php - marca uma tarefa como concluída
+// PUT: /api/user - altera o estado de um utilizador
 function handlePut(PDO $pdo, array $input):void {
     try {
         $sql = "UPDATE user SET name = :name, email = :email WHERE id = :id";
@@ -102,7 +81,7 @@ function handlePut(PDO $pdo, array $input):void {
     }
 }
 
-// DELETE: /api.php - deleta uma tarefa
+// DELETE: /api/user - elimina um utilizador
 function handleDelete(PDO $pdo, array $input):void {
     try {
         $sql = "DELETE FROM user WHERE id = :id";
